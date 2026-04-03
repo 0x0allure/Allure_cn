@@ -1,0 +1,14 @@
+# 忽略所有 jar 包
+*.jar
+
+# 忽略编译生成的文件
+target/
+build/
+*.class
+*.war
+*.ear
+
+# IDE 自动生成的文件
+.idea/
+*.iml
+.vscode/
