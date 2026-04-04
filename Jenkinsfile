@@ -1,0 +1,41 @@
+pipeline {
+    agent any
+    tools {
+        maven 'Maven'
+    }
+    stages {
+        stage('拉代码') {
+            steps {
+                sh 'git fetch git@github.com:0x0allure/Allure_cn.git main'
+                sh 'git reset --hard origin/main'
+            }
+        }
+        stage('打包') {
+            steps {
+                sh 'mvn clean package -DskipTests'
+            }
+        }
+        stage('构建镜像') {
+            steps {
+                sh 'docker build -t hellocicd .'
+            }
+        }
+        stage('部署') {
+            steps {
+                sh '''
+                    docker stop hellocicd || true
+                    docker rm hellocicd || true
+                    docker run -d -p 8080:8080 --name hellocicd hellocicd
+                '''
+            }
+        }
+    }
+    post{
+        success{
+            echo '构建成功'
+        }
+        failure{
+            echo'构建失败'
+        }
+    }
+}
