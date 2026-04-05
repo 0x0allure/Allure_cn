@@ -17,16 +17,12 @@ pipeline {
         }
         stage('构建镜像') {
             steps {
-                sh 'docker build -t hellocicd .'
+                sh 'docker build -t hellocicd -f ./Deployment_script/Dockerfile .'
             }
         }
         stage('部署') {
             steps {
-                sh '''
-                    docker stop hellocicd || true
-                    docker rm hellocicd || true
-                    docker run -d -p 8080:8080 --name hellocicd hellocicd
-                '''
+                sh 'docker compose -f Deployment_script/docker-compose.yml up -d ' 
             }
         }
     }

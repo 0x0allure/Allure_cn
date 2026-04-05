@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0.45-debian 
+    container_name: mysql8
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: testdb
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - mynet  # 加入你已有的网络
+
+  app:
+    image: hellocicd
+    container_name: hellocicd
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    networks:
+      - mynet  # 加入你已有的网络
+
+# 关键：声明这是外部网络
+networks:
+  mynet:
+    external: true  # 代表这个网络已经存在，不是compose创建
+
+volumes:
+  mysql_data:
