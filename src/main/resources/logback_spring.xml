@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- 输出到文件 -->
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>/app/logs/app.log</file>  <!-- 必须和容器挂载路径一致 -->
+        <encoder>
+            <pattern>  %d{yyyy-MM-dd HH:mm:ss}    [%thread]    %-5level     %logger{50}    -    %msg%n   </pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    
+    <!-- 控制台输出（可选，方便调试） -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>  %d{yyyy-MM-dd HH:mm:ss}    [%thread]    %-5level     %logger{50}    -    %msg%n   </pattern>
+        </encoder>
+    </appender>
+    
+    <!-- 根日志级别 + 输出源 -->
+    <root level="INFO">
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="CONSOLE"/>  <!-- 可选，启动时能在控制台看日志 -->
+    </root>
+</configuration>

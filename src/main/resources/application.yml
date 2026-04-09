@@ -4,6 +4,7 @@ spring:
     username: root
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
+    
 
   jpa:
     hibernate:
@@ -12,3 +13,11 @@ spring:
     properties:
       hibernate:
         formatSql: true
+
+  main:
+    web-application-type: servlet
+    allow-circular-references: true
+logging:
+  config: classpath:logback_spring.xml  # 指向resources下的配置文件
+  file:
+    name: /app/logs/app.log  # 容器内绝对路径，和logback里的<file>一致

@@ -21,6 +21,8 @@ services:
     restart: always
     ports:
       - "8080:8080"
+    volumes:
+      - /srv/startcompose/logs/springboot:/app/logs
     depends_on:
       - mysql
     networks:

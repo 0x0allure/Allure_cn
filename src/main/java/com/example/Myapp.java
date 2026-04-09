@@ -10,10 +10,6 @@ public class Myapp {
     public static void main(String[] args) {
         SpringApplication.run(Myapp.class, args);
     }
-    @GetMapping("/")
-    public String home() {
-    return "Welcome to CI/CD Demo!";
-}
     @GetMapping("/hello")
     public String hello() {
         return "Hello CI/CD & Docker & Nginx!";
