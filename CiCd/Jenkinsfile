@@ -1,5 +1,6 @@
 pipeline {
     agent any
+    
     tools {
         maven 'Maven'
     }
@@ -17,12 +18,12 @@ pipeline {
         }
         stage('构建镜像') {
             steps {
-                sh 'docker build -t hellocicd -f ./Deployment_script/Dockerfile .'
+                sh 'docker build -t hellocicd -f ./CiCd/Dockerfile .'
             }
         }
         stage('部署') {
             steps {
-                sh 'docker compose -f Deployment_script/docker-compose.yml up -d ' 
+                sh 'docker compose -f ./CiCd/docker-compose.yml up -d ' 
             }
         }
     }
